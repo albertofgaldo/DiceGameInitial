@@ -7,7 +7,6 @@ import game.dice.com.dicegameapp.persistance.RepositoryPlayer;
 
 public class GameController {
 
-	private Player player;
 	private RepositoryPlayer repositoryPlayer= new RepositoryPlayer();
 
 	public GameController() {
@@ -16,23 +15,19 @@ public class GameController {
 
 	public void createPlayer(String name)throws Exception {
 
-		this.player = new Player(name);
+		Player player = new Player(name);
 		if(player==null)throw new Exception();
-		repositoryPlayer.addPlayer(this.player);
+		repositoryPlayer.addPlayer(player);
 	}
 
-	public String getPlayerName() {
-		return player.getName();
-	}
-
-	public boolean playGame() {
+	public boolean playGame(Player player) {
 		Game game = new Game();
 		boolean hasWon = game.playGame();
 		player.addGame(game);
 		return hasWon;
 	}
 
-	public String getPlayerGamesToString() {
+	public String getPlayerGamesToString(Player player) {
 		String text = "";
 		List<Game> games = player.getAllGames();
 
@@ -42,7 +37,7 @@ public class GameController {
 		return text;
 	}
 
-	public double getPlayerRanking() {
+	public double getPlayerRanking(Player player) {
 		List<Game> games = player.getAllGames();
 
 		double wins = 0.0;
@@ -54,8 +49,7 @@ public class GameController {
 	}
 
 	public boolean existPlayer(String name)throws Exception{
-		if(repositoryPlayer==null)throw new Exception("No hay repositorio");
-		for (Player p:repositoryPlayer.getRepositoryPlayer()){
+		for (Player p : repositoryPlayer.getRepositoryPlayer()){
 			if(p.getName()==name) {
 				return true;
 			}

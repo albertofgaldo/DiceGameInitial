@@ -29,20 +29,25 @@ public class LoginActivity extends Activity {
 
         AlertDialog.Builder builder=new AlertDialog.Builder(LoginActivity.this);
         builder.setCancelable(false);
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                //mostramos la activity menu al pulsar OK
-                startActivity(i);
+
+        if(!usuario.getText().toString().isEmpty()) {
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    //mostramos la activity menu al pulsar OK
+                    startActivity(i);
+                }
+            });
+            if (gameController.existPlayer(usuario.getText().toString())) {
+                builder.setTitle("Bienvenido " + usuario.getText().toString());
+            } else {
+                gameController.createPlayer(usuario.getText().toString());
+                builder.setTitle("Usuario " + usuario.getText().toString() + " creado");
             }
-        });
 
-        if (gameController.existPlayer(usuario.getText().toString())){
-            builder.setTitle("Bienvenido " +  usuario.getText().toString());
         }else{
-            gameController.createPlayer(usuario.getText().toString());
-            builder.setTitle("Usuario " +  usuario.getText().toString() +" creado");
-        }
-
+                builder.setPositiveButton("OK", null);
+                builder.setTitle("Debes escribir un usuario");
+            }
         builder.show();
 
     }

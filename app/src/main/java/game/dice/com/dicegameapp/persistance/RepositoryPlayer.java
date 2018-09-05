@@ -7,7 +7,7 @@ import game.dice.com.dicegameapp.domain.Player;
 
 public class RepositoryPlayer {
 
-    protected List<Player> repositoryPlayer;
+    protected static List<Player> repositoryPlayer;
 
     public RepositoryPlayer(){
         repositoryPlayer=new ArrayList<>();
