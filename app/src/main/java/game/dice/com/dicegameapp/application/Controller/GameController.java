@@ -1,4 +1,4 @@
-package game.dice.com.dicegameapp.application;
+package game.dice.com.dicegameapp.application.Controller;
 
 import java.util.List;
 import game.dice.com.dicegameapp.domain.*;
@@ -7,7 +7,8 @@ import game.dice.com.dicegameapp.persistance.RepositoryPlayer;
 
 public class GameController {
 
-	private RepositoryPlayer repositoryPlayer= new RepositoryPlayer();
+	private static RepositoryPlayer repositoryPlayer= new RepositoryPlayer();
+	private static int playerActual;
 
 	public GameController() {
 
@@ -50,7 +51,8 @@ public class GameController {
 
 	public boolean existPlayer(String name)throws Exception{
 		for (Player p : repositoryPlayer.getRepositoryPlayer()){
-			if(p.getName()==name) {
+			if(p.getName().equals(name)) {
+				playerActual=p.hashCode();
 				return true;
 			}
 		}

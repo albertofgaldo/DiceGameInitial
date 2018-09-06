@@ -1,11 +1,11 @@
-package game.dice.com.dicegameapp.application;
+package game.dice.com.dicegameapp.application.DTO;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import game.dice.com.dicegameapp.domain.Game;
 import game.dice.com.dicegameapp.domain.Player;
-import game.dice.com.dicegameapp.application.GameDTO;
+
 public class PlayerDTO {
 
     private String name;

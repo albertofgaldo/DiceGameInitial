@@ -1,4 +1,4 @@
-package game.dice.com.dicegameapp.application;
+package game.dice.com.dicegameapp.application.DTO;
 
 import game.dice.com.dicegameapp.domain.Dice;
 import game.dice.com.dicegameapp.domain.Game;

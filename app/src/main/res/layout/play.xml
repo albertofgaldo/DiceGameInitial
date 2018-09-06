@@ -17,7 +17,7 @@
         android:inputType="number"
         android:textAlignment="center"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/atras"
+        app:layout_constraintBottom_toTopOf="@+id/buttonAtras"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
