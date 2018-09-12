@@ -23,6 +23,7 @@ public class MenuActivity extends Activity {
         salir = (Button)findViewById(R.id.buttonSalir);
 
         play.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 Intent play = new Intent(MenuActivity.this, PlayActivity.class);
@@ -41,7 +42,9 @@ public class MenuActivity extends Activity {
         salir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Intent salir = new Intent(MenuActivity.this, LoginActivity.class);
+                startActivity(salir);
+
             }
         });
 

@@ -8,7 +8,8 @@ import game.dice.com.dicegameapp.persistance.RepositoryPlayer;
 public class GameController {
 
 	private static RepositoryPlayer repositoryPlayer= new RepositoryPlayer();
-	private static int playerActual;
+	private static Player playerActual;
+	private static Game gameActual;
 
 	public GameController() {
 
@@ -19,12 +20,14 @@ public class GameController {
 		Player player = new Player(name);
 		if(player==null)throw new Exception();
 		repositoryPlayer.addPlayer(player);
+		playerActual=player;
 	}
 
 	public boolean playGame(Player player) {
 		Game game = new Game();
 		boolean hasWon = game.playGame();
 		player.addGame(game);
+		gameActual=game;
 		return hasWon;
 	}
 
@@ -52,11 +55,19 @@ public class GameController {
 	public boolean existPlayer(String name)throws Exception{
 		for (Player p : repositoryPlayer.getRepositoryPlayer()){
 			if(p.getName().equals(name)) {
-				playerActual=p.hashCode();
+				playerActual=p;
 				return true;
 			}
 		}
 		return false;
+	}
+
+	public Player getPlayerActual(){
+		return playerActual;
+	}
+
+	public Game getGameActual(){
+		return gameActual;
 	}
 
 }

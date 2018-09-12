@@ -9,45 +9,51 @@
     <EditText
         android:id="@+id/textDadoResultado"
         android:layout_width="72dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="63dp"
-        android:layout_marginTop="312dp"
+        android:layout_height="61dp"
+        android:layout_marginBottom="48dp"
         android:ems="10"
         android:hint="2"
         android:inputType="number"
         android:textAlignment="center"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonAtras"
+        app:layout_constraintBottom_toTopOf="@+id/hasGanado"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonTirar" />
 
     <Button
         android:id="@+id/buttonTirar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="276dp"
+        android:layout_marginBottom="19dp"
+        android:layout_marginEnd="135dp"
+        android:layout_marginStart="137dp"
+        android:layout_marginTop="120dp"
         android:text="Tirar Dados"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/textDadoResultado"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/buttonAtras"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="22dp"
+        android:layout_marginEnd="148dp"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="8dp"
         android:text="Atrás"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textDadoResultado" />
+        app:layout_constraintTop_toBottomOf="@+id/hasGanado" />
 
     <EditText
         android:id="@+id/textDado2"
         android:layout_width="0dp"
         android:layout_height="72dp"
+        android:layout_marginBottom="347dp"
         android:layout_marginEnd="48dp"
         android:layout_marginTop="92dp"
         android:ems="10"
@@ -55,6 +61,7 @@
         android:inputType="number"
         android:textAlignment="center"
         android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textDado1"
         app:layout_constraintTop_toTopOf="parent" />
@@ -63,6 +70,7 @@
         android:id="@+id/textDado1"
         android:layout_width="0dp"
         android:layout_height="72dp"
+        android:layout_marginBottom="347dp"
         android:layout_marginEnd="144dp"
         android:layout_marginStart="48dp"
         android:layout_marginTop="92dp"
@@ -71,7 +79,21 @@
         android:inputType="number"
         android:textAlignment="center"
         android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/textDado2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/hasGanado"
+        android:layout_width="wrap_content"
+        android:layout_height="39dp"
+        android:layout_marginEnd="142dp"
+        android:layout_marginStart="143dp"
+        android:layout_marginTop="48dp"
+        android:textSize="24sp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textDadoResultado" />
 </android.support.constraint.ConstraintLayout>
