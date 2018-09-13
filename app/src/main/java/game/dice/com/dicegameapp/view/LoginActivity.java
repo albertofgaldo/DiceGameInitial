@@ -8,8 +8,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.List;
+
 import game.dice.com.dicegameapp.R;
 import game.dice.com.dicegameapp.application.Controller.GameController;
+import game.dice.com.dicegameapp.application.DTO.GameDTO;
+import game.dice.com.dicegameapp.application.DTO.PlayerDTO;
 
 public class LoginActivity extends Activity {
 
@@ -35,18 +39,23 @@ public class LoginActivity extends Activity {
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     //mostramos la activity menu al pulsar OK
+
                     startActivity(i);
                 }
             });
 
-            if (gameController.existPlayer(usuario.getText().toString())) {
-                builder.setTitle("Bienvenido " + usuario.getText().toString());
+                PlayerDTO playerDTO = gameController.existPlayer(usuario.getText().toString());
+
+
+            if (playerDTO!=null) {
+                builder.setTitle("Bienvenido " + playerDTO.getName().toString());
             } else {
-                gameController.createPlayer(usuario.getText().toString());
-
-                builder.setTitle("Usuario " + usuario.getText().toString() + " creado");
+                playerDTO=gameController.createPlayer(usuario.getText().toString());
+                builder.setTitle("Usuario " + playerDTO.getName().toString() + " creado");
             }
-
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("playerDTO", playerDTO);
+            i.putExtras(bundle);
         }else{
                 builder.setPositiveButton("OK", null);
                 builder.setTitle("Debes escribir un usuario");

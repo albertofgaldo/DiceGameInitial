@@ -17,8 +17,7 @@ import static game.dice.com.dicegameapp.R.layout.play;
 public class PlayActivity extends Activity {
 
     Button tirarDados, atras;
-    TextView dado1, dado2, dadoResultado, hasGanado;
-
+    TextView dado1, dado2, dadoResultado, hasGanado, userLoged2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +25,8 @@ public class PlayActivity extends Activity {
         setContentView(play);
 
         final GameController gameController = new GameController();
+        userLoged2 = (TextView)findViewById(R.id.userLoged2);
+        userLoged2.setText("Estás logueado como: " + gameController.getPlayerActual().getName().toString());
         dado1=(TextView)findViewById(R.id.textDado1);
         dado2=(TextView)findViewById(R.id.textDado2);
         dadoResultado=(TextView)findViewById(R.id.textDadoResultado);

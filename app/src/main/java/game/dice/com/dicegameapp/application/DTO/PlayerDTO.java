@@ -1,12 +1,13 @@
 package game.dice.com.dicegameapp.application.DTO;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import game.dice.com.dicegameapp.domain.Game;
 import game.dice.com.dicegameapp.domain.Player;
 
-public class PlayerDTO {
+public class PlayerDTO implements Serializable {
 
     private String name;
     private List<GameDTO> games=new ArrayList<>();

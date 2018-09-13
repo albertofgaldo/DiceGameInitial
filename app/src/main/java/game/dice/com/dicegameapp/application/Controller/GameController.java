@@ -1,6 +1,8 @@
 package game.dice.com.dicegameapp.application.Controller;
 
 import java.util.List;
+
+import game.dice.com.dicegameapp.application.DTO.PlayerDTO;
 import game.dice.com.dicegameapp.domain.*;
 import game.dice.com.dicegameapp.persistance.RepositoryPlayer;
 
@@ -8,26 +10,26 @@ import game.dice.com.dicegameapp.persistance.RepositoryPlayer;
 public class GameController {
 
 	private static RepositoryPlayer repositoryPlayer= new RepositoryPlayer();
-	private static Player playerActual;
-	private static Game gameActual;
+
 
 	public GameController() {
 
 	}
 
-	public void createPlayer(String name)throws Exception {
+	public PlayerDTO createPlayer(String name)throws Exception {
 
 		Player player = new Player(name);
 		if(player==null)throw new Exception();
 		repositoryPlayer.addPlayer(player);
-		playerActual=player;
+		//playerActual=player;
+		return new PlayerDTO(player);
 	}
 
-	public boolean playGame(Player player) {
+	public boolean playGame(Player player, PlayerDTO playerDTO) {
 		Game game = new Game();
 		boolean hasWon = game.playGame();
 		player.addGame(game);
-		gameActual=game;
+		//gameActual=game;
 		return hasWon;
 	}
 
@@ -36,7 +38,7 @@ public class GameController {
 		List<Game> games = player.getAllGames();
 
 		for (Game game : games) {
-			text += "SUMA: " + game.getSumDices() + " RESULTAT: " + game.hasWon();
+			text += "SUMA: " + game.getSumDices() + " RESULTAT: " + game.hasWon() + "\n";
 		}
 		return text;
 	}
@@ -52,22 +54,15 @@ public class GameController {
 		return wins / games.size();
 	}
 
-	public boolean existPlayer(String name)throws Exception{
+	public PlayerDTO existPlayer(String name)throws Exception{
+		PlayerDTO playerDTO=null;
 		for (Player p : repositoryPlayer.getRepositoryPlayer()){
 			if(p.getName().equals(name)) {
-				playerActual=p;
-				return true;
+				//playerActual=p;
+				return new PlayerDTO(p);
 			}
 		}
-		return false;
-	}
-
-	public Player getPlayerActual(){
-		return playerActual;
-	}
-
-	public Game getGameActual(){
-		return gameActual;
+		return playerDTO;
 	}
 
 }

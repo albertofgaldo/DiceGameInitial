@@ -5,19 +5,19 @@ import game.dice.com.dicegameapp.domain.Game;
 
 public class GameDTO {
 
-    private Dice dice1;
-    private Dice dice2;
+    private int dice1;
+    private int dice2;
 
     public GameDTO(Game game){
-        this.dice1=game.getDice1();
-        this.dice2=game.getDice2();
+        this.dice1=game.getDice1().getValue();
+        this.dice2=game.getDice2().getValue();
     }
 
-    public Dice getDice1(){
+    public int getDice1(){
         return this.dice1;
     }
 
-    public Dice getDice2(){
+    public int getDice2(){
         return this.dice2;
     }
 }
