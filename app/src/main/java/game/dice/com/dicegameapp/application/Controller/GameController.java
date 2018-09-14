@@ -3,6 +3,7 @@ package game.dice.com.dicegameapp.application.Controller;
 import java.util.List;
 
 import game.dice.com.dicegameapp.application.DTO.PlayerDTO;
+import game.dice.com.dicegameapp.utilities.*;
 import game.dice.com.dicegameapp.domain.*;
 import game.dice.com.dicegameapp.persistance.RepositoryPlayer;
 
@@ -54,15 +55,40 @@ public class GameController {
 		return wins / games.size();
 	}
 
-	public PlayerDTO existPlayer(String name)throws Exception{
-		PlayerDTO playerDTO=null;
+	public boolean existPlayer(String name)throws Exception{
 		for (Player p : repositoryPlayer.getRepositoryPlayer()){
 			if(p.getName().equals(name)) {
 				//playerActual=p;
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean existGame (Player player) throws Exception{
+		if(player.getAllGames()==null){
+			return false;
+		}else{
+			return true;
+		}
+	}
+
+	public PlayerDTO getPlayer(String name)throws ExceptionInvalidParamException {
+
+		for (Player p : repositoryPlayer.getRepositoryPlayer()) {
+			if (p.getName().equals(name)) {
 				return new PlayerDTO(p);
 			}
 		}
-		return playerDTO;
+		throw new ExceptionInvalidParamException();
 	}
 
+	public PlayerDTO getPlayerById (int id)throws ExceptionInvalidParamException{
+		for (Player p : repositoryPlayer.getRepositoryPlayer()){
+			if(p.getId()==id);
+				//playerActual=p;
+				return new PlayerDTO(p);
+		}
+		throw new ExceptionInvalidParamException();
+	}
 }

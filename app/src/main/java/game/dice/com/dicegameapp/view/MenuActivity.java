@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+
 import java.nio.BufferUnderflowException;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import game.dice.com.dicegameapp.R;
 import game.dice.com.dicegameapp.application.Controller.GameController;
 import game.dice.com.dicegameapp.application.DTO.GameDTO;
 import game.dice.com.dicegameapp.application.DTO.PlayerDTO;
+import game.dice.com.dicegameapp.utilities.*;
 
 import static game.dice.com.dicegameapp.R.layout.main_menu;
 
@@ -24,7 +26,8 @@ public class MenuActivity extends Activity {
     TextView userLoged;
     private GameController gameController= new GameController();
     Bundle bundle=getIntent().getExtras();
-    PlayerDTO playerDTO= (PlayerDTO) bundle.getSerializable("playerDTO");
+
+    PlayerDTO playerDTO= (PlayerDTO) gameController.getPlayerById(bundle.getInt("idPlayer"));
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -49,7 +52,8 @@ public class MenuActivity extends Activity {
             @Override
             public void onClick(View v) {
                 //comprobar que el jugador tiene partidas previas.
-                if(gameController.getPlayerGamesToString(gameController.getPlayerActual()).equalsIgnoreCase("")){
+
+                if(gameController.existGame){
                     AlertDialog.Builder builder=new AlertDialog.Builder(MenuActivity.this);
                     builder.setCancelable(false);
                     builder.setPositiveButton("OK", null);

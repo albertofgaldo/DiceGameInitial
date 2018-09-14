@@ -2,14 +2,20 @@ package game.dice.com.dicegameapp.domain;
 
 public class Game {
 
+	private int id;
 	private Dice dice1=new Dice();
 	private Dice dice2=new Dice();
-	
+	private int counter=1;
+
 	public Game(){
-		
+
 	}
 	
 	public boolean playGame() {
+
+		id=counter;
+		counter++;
+
 		dice1.rollDice();
 		dice2.rollDice();
 		
@@ -31,4 +37,6 @@ public class Game {
 	public Dice getDice2() {
 		return dice2;
 	}
+
+	public int getId(){return id;}
 }
