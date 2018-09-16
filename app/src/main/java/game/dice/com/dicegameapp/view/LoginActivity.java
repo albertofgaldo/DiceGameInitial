@@ -5,61 +5,62 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
 import game.dice.com.dicegameapp.R;
 import game.dice.com.dicegameapp.application.Controller.GameController;
+import game.dice.com.dicegameapp.application.Controller.PlayerController;
 import game.dice.com.dicegameapp.application.DTO.GameDTO;
 import game.dice.com.dicegameapp.application.DTO.PlayerDTO;
 import game.dice.com.dicegameapp.domain.Player;
+import game.dice.com.dicegameapp.utilities.ExceptionPlayerNull;
 
 public class LoginActivity extends Activity {
 
-    GameController gameController;
-
+    private static PlayerController playerController = new PlayerController();
     TextView usuario;
+    Button go;
+
+    PlayerDTO playerDTO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
-        gameController= new GameController();
-        usuario=(TextView)findViewById(R.id.userText);
-    }
 
-    public void checkLogin(View vista)throws Exception{
-        final Intent i = new Intent(this,MenuActivity.class);
+        usuario =(TextView)findViewById(R.id.userText);
+        go = (Button) findViewById(R.id.buttonGo);
 
-        AlertDialog.Builder builder=new AlertDialog.Builder(LoginActivity.this);
-        builder.setCancelable(false);
-
-        if(!usuario.getText().toString().isEmpty()) {
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    //mostramos la activity menu al pulsar OK
-
-                    startActivity(i);
+        go.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                if(usuario.getText().toString().equalsIgnoreCase("")){
+                   // mensajeToast("Inserta un jugador");
+                    Toast.makeText(getApplicationContext(), "Inserta un usuario", Toast.LENGTH_SHORT).show();
+                }else{
+                    //comprobamos si existe o hay que crearlo
+                    if(playerController.existPlayer(usuario.getText().toString())) {
+                        playerDTO = new PlayerDTO (playerController.getPlayer(usuario.getText().toString()));
+                        Toast.makeText(getApplicationContext(), "Bienvenido " + playerDTO.getName().toString(), Toast.LENGTH_SHORT).show();
+                    }else{
+                        playerDTO = new PlayerDTO (playerController.createPlayer(usuario.getText().toString()));
+                        Toast.makeText(getApplicationContext(), "Usuario " + playerDTO.getName().toString() + " creado", Toast.LENGTH_SHORT).show();
+                    }
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("idPlayer", playerDTO.getId());
+                    //cambiamos de activity
+                    Intent menu = new Intent(LoginActivity.this, MenuActivity.class);
+                    menu.putExtras(bundle);
+                    startActivity(menu);
                 }
-            });
-            Bundle bundle = new Bundle();
-            if (gameController.existPlayer(usuario.getText().toString())){
-                PlayerDTO playerDTO = gameController.getPlayer(usuario.getText().toString());
-                builder.setTitle("Bienvenido " + playerDTO.getName());
-                bundle.putSerializable("idPlayer", playerDTO.getId());
-            } else {
-                PlayerDTO playerDTO = gameController.createPlayer(usuario.getText().toString());
-                builder.setTitle("Usuario " + playerDTO.getName().toString() + " creado");
-                bundle.putSerializable("idPlayer", playerDTO.getId());
             }
-            i.putExtras(bundle);
-        }else{
-                builder.setPositiveButton("OK", null);
-                builder.setTitle("Debes escribir un usuario");
-            }
-        builder.show();
+        });
 
     }
 }

@@ -17,20 +17,10 @@ public class GameController {
 
 	}
 
-	public PlayerDTO createPlayer(String name)throws Exception {
-
-		Player player = new Player(name);
-		if(player==null)throw new Exception();
-		repositoryPlayer.addPlayer(player);
-		//playerActual=player;
-		return new PlayerDTO(player);
-	}
-
-	public boolean playGame(Player player, PlayerDTO playerDTO) {
+	public boolean playGame(Player player) {
 		Game game = new Game();
 		boolean hasWon = game.playGame();
 		player.addGame(game);
-		//gameActual=game;
 		return hasWon;
 	}
 
@@ -55,17 +45,7 @@ public class GameController {
 		return wins / games.size();
 	}
 
-	public boolean existPlayer(String name)throws Exception{
-		for (Player p : repositoryPlayer.getRepositoryPlayer()){
-			if(p.getName().equals(name)) {
-				//playerActual=p;
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public boolean existGame (Player player) throws Exception{
+	public boolean existGame (Player player){
 		if(player.getAllGames()==null){
 			return false;
 		}else{
@@ -73,22 +53,7 @@ public class GameController {
 		}
 	}
 
-	public PlayerDTO getPlayer(String name)throws ExceptionInvalidParamException {
-
-		for (Player p : repositoryPlayer.getRepositoryPlayer()) {
-			if (p.getName().equals(name)) {
-				return new PlayerDTO(p);
-			}
-		}
-		throw new ExceptionInvalidParamException();
-	}
-
-	public PlayerDTO getPlayerById (int id)throws ExceptionInvalidParamException{
-		for (Player p : repositoryPlayer.getRepositoryPlayer()){
-			if(p.getId()==id);
-				//playerActual=p;
-				return new PlayerDTO(p);
-		}
-		throw new ExceptionInvalidParamException();
+	public Game getLastGame(Player player){
+		return player.getAllGames().get(player.getAllGames().size()-1);
 	}
 }

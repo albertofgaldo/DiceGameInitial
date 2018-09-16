@@ -12,6 +12,10 @@ import org.w3c.dom.Text;
 
 import game.dice.com.dicegameapp.R;
 import game.dice.com.dicegameapp.application.Controller.GameController;
+import game.dice.com.dicegameapp.application.Controller.PlayerController;
+import game.dice.com.dicegameapp.application.DTO.GameDTO;
+import game.dice.com.dicegameapp.application.DTO.PlayerDTO;
+
 import static game.dice.com.dicegameapp.R.layout.play;
 
 public class PlayActivity extends Activity {
@@ -23,10 +27,14 @@ public class PlayActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(play);
+        Bundle bundle=getIntent().getExtras();
 
         final GameController gameController = new GameController();
+        final PlayerController playerController = new PlayerController();
+        final PlayerDTO playerDTO= new PlayerDTO(playerController.getPlayerById(bundle.getInt("idPlayer")));
+
         userLoged2 = (TextView)findViewById(R.id.userLoged2);
-        userLoged2.setText("Estás logueado como: " + gameController.getPlayerActual().getName().toString());
+        userLoged2.setText("Estás logueado como: " + playerDTO.getName());
         dado1=(TextView)findViewById(R.id.textDado1);
         dado2=(TextView)findViewById(R.id.textDado2);
         dadoResultado=(TextView)findViewById(R.id.textDadoResultado);
@@ -44,7 +52,7 @@ public class PlayActivity extends Activity {
         tirarDados.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(gameController.playGame(gameController.getPlayerActual())){
+                if(gameController.playGame(playerController.getPlayerById(playerDTO.getId()))){
                     hasGanado.setText("Has Ganado!");
                     hasGanado.setTextColor(Color.GREEN);
                     dadoResultado.setTextColor(Color.GREEN);
@@ -53,10 +61,11 @@ public class PlayActivity extends Activity {
                     hasGanado.setTextColor(Color.RED);
                     dadoResultado.setTextColor(Color.RED);
                 }
-                dado1.setText(Integer.toString(gameController.getGameActual().getDice1().getValue()));
-                dado2.setText(Integer.toString(gameController.getGameActual().getDice2().getValue()));
-                dadoResultado.setText(Integer.toString(gameController.getGameActual().getSumDices()));
+                GameDTO gameDTO= new GameDTO(gameController.getLastGame(playerController.getPlayerById(playerDTO.getId())));
 
+                dado1.setText(Integer.toString(gameDTO.getDice1()));
+                dado2.setText(Integer.toString(gameDTO.getDice2()));
+                dadoResultado.setText(Integer.toString(gameDTO.getDice1() + gameDTO.getDice2()));
             }
         });
     }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import game.dice.com.dicegameapp.domain.Player;
+import game.dice.com.dicegameapp.utilities.ExceptionPlayerNull;
 
 public class RepositoryPlayer {
 
@@ -13,8 +14,8 @@ public class RepositoryPlayer {
         repositoryPlayer=new ArrayList<>();
     }
 
-    public void addPlayer(Player player)throws Exception{
-        if(player==null)throw new Exception();
+    public void addPlayer(Player player)throws ExceptionPlayerNull{
+        if(player==null)throw new ExceptionPlayerNull();
         repositoryPlayer.add(player);
     }
 
