@@ -26,10 +26,9 @@ public class MenuActivity extends Activity {
 
     Button play, scores, salir;
     TextView userLoged;
-    PlayerController playerController;
-    GameController gameController;
-    Bundle bundle=getIntent().getExtras();
-    PlayerDTO playerDTO= new PlayerDTO(playerController.getPlayerById(bundle.getInt("idPlayer")));
+    private static PlayerController playerController = new PlayerController();
+    private static GameController gameController = new GameController();
+    PlayerDTO playerDTO;
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -38,14 +37,13 @@ public class MenuActivity extends Activity {
         play = (Button)findViewById(R.id.buttonPlay);
         scores = (Button)findViewById(R.id.buttonScores);
         salir = (Button)findViewById(R.id.buttonSalir);
-        userLoged = (TextView)findViewById(R.id.userLoged);
-        userLoged.setText("Estás logueado como: " + playerDTO.getName());
 
         play.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 Intent play = new Intent(MenuActivity.this, PlayActivity.class);
+                play.putExtra("idPlayer",playerDTO.getId());
                 startActivity(play);
             }
         });
@@ -56,8 +54,7 @@ public class MenuActivity extends Activity {
                 //comprobar que el jugador tiene partidas previas.
                 if(gameController.existGame(playerController.getPlayerById(playerDTO.getId()))){
                     Intent scores = new Intent(MenuActivity.this, ScoresActivity.class);
-                    bundle.putInt("idPlayer", playerDTO.getId());
-                    scores.putExtras(bundle);
+                    scores.putExtra("idPlayer",playerDTO.getId());
                     startActivity(scores);
                 }else {
                     Toast.makeText(getApplicationContext(),"No has jugado ninguna partida", Toast.LENGTH_SHORT).show();
@@ -73,5 +70,13 @@ public class MenuActivity extends Activity {
             }
         });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        playerDTO = new PlayerDTO(playerController.getPlayerById(getIntent().getExtras().getInt("idPlayer")));
+        userLoged = (TextView)findViewById(R.id.userLoged);
+        userLoged.setText("Estás logueado como: " + playerDTO.getName());
     }
 }

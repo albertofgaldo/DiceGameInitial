@@ -38,9 +38,9 @@ public class PlayerController {
 
     public Player getPlayerById (int id)throws ExceptionPlayerNull {
         for (Player p : repositoryPlayer.getRepositoryPlayer()){
-            if(p.getId()==id);
-            //playerActual=p;
-            return p;
+            if(p.getId()==id) {
+                return p;
+            }
         }
         throw new ExceptionPlayerNull();
     }

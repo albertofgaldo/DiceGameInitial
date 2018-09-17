@@ -27,11 +27,10 @@ public class PlayActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(play);
-        Bundle bundle=getIntent().getExtras();
 
         final GameController gameController = new GameController();
         final PlayerController playerController = new PlayerController();
-        final PlayerDTO playerDTO= new PlayerDTO(playerController.getPlayerById(bundle.getInt("idPlayer")));
+        final PlayerDTO playerDTO= new PlayerDTO(playerController.getPlayerById(getIntent().getExtras().getInt("idPlayer")));
 
         userLoged2 = (TextView)findViewById(R.id.userLoged2);
         userLoged2.setText("Estás logueado como: " + playerDTO.getName());

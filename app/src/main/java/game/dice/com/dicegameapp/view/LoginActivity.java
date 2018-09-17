@@ -24,6 +24,7 @@ import game.dice.com.dicegameapp.utilities.ExceptionPlayerNull;
 public class LoginActivity extends Activity {
 
     private static PlayerController playerController = new PlayerController();
+    private static GameController gameController = new GameController();
     TextView usuario;
     Button go;
 
@@ -52,11 +53,8 @@ public class LoginActivity extends Activity {
                         playerDTO = new PlayerDTO (playerController.createPlayer(usuario.getText().toString()));
                         Toast.makeText(getApplicationContext(), "Usuario " + playerDTO.getName().toString() + " creado", Toast.LENGTH_SHORT).show();
                     }
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("idPlayer", playerDTO.getId());
-                    //cambiamos de activity
                     Intent menu = new Intent(LoginActivity.this, MenuActivity.class);
-                    menu.putExtras(bundle);
+                    menu.putExtra("idPlayer",playerDTO.getId());
                     startActivity(menu);
                 }
             }

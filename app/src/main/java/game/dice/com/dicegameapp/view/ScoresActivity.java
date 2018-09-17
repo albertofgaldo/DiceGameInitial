@@ -22,11 +22,10 @@ public class ScoresActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(scores);
-        Bundle bundle=getIntent().getExtras();
 
         GameController gameController = new GameController();
         PlayerController playerController = new PlayerController();
-        final PlayerDTO playerDTO= new PlayerDTO(playerController.getPlayerById(bundle.getInt("idPlayer")));
+        final PlayerDTO playerDTO= new PlayerDTO(playerController.getPlayerById(getIntent().getExtras().getInt("idPlayer")));
 
         userLoged3 = (TextView)findViewById(R.id.userLoged3);
         scoresList=(TextView)findViewById(R.id.scoresList);

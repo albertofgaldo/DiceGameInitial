@@ -46,7 +46,7 @@ public class GameController {
 	}
 
 	public boolean existGame (Player player){
-		if(player.getAllGames()==null){
+		if(player.getAllGames().isEmpty()){
 			return false;
 		}else{
 			return true;
