@@ -69,7 +69,6 @@ public class MenuActivity extends Activity {
                 startActivity(salir);
             }
         });
-
     }
 
     @Override
